@@ -41,12 +41,7 @@ public class ProjectController {
                 newFileName = FileUtil.fileDownload(file);
                 if (!newFileName.equals(RETURN_MESSAGE_FAIL)) {
                     // 将数据存入数据库
-                    project.setProjectName(projectName);
-                    project.setUsername(username);
-                    project.setTelephone(phone);
-                    project.setContent(content);
-                    project.setUploader(newFileName);
-                    project.setDate(date);
+                    project.setProject(projectName, username, phone, content, newFileName, date);
                     if (location != null) {
                         project.setLongitude(location.getLng());
                         project.setLatitude(location.getLat());

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demoproject.mapper.SampleTestMapper">
+
+    <insert id="insertSampleTest" parameterType="com.example.demoproject.entity.SampleTest">
+        insert into
+            sample_test(org_name, address, contacts, phone, project_name,
+                        project_id, witness, certificate_number, test_name,
+                        test_number, test_type, test_factory, test_org_id,
+                        test_using, test_project, test_dependence, test_handling, remark, reprot_distribution)
+        values
+            (#{orgName}, #{address}, #{contacts}, #{phone}, #{projectName}, #{projectId},
+             #{witness}, #{certificateNumber}, #{testName}, #{testNumber}, #{testType}, #{testFactory},
+             #{testOrgId}, #{testUsing}, #{testProject}, #{testDependence}, #{testHandling},
+             #{remark}, #{reportDistribution})
+    </insert>
+
+    <select id="selectAllSampleTest" resultType="com.example.demoproject.entity.SampleTest">
+        select
+            id, address, org_name as orgName, contacts, phone, project_name as projectName,
+            project_id as projectId, witness, certificate_number as certificateNumber, test_name as testName,
+            test_number as testNumber, test_type as testType, test_factory as testFactory, test_org_id as testOrgId,
+            test_using as testUsing, test_project as testProject, test_dependence as testDependence,
+            test_handling as testHandling, remark, report_distribution as reportDistribution,
+            sample_status as sampleStatus
+        from
+            sample_test
+    </select>
+</mapper>
