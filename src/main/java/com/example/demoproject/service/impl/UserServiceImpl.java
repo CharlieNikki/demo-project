@@ -18,8 +18,15 @@ public class UserServiceImpl implements UserService {
         return mapper.insertUser(user);
     }
 
+
+
     @Override
     public User selectUserByPhone(String phone) {
         return mapper.selectUserByPhone(phone);
+    }
+
+    @Override
+    public int updateUserByPhone(String phone, String username, String companyName) {
+        return mapper.updateUserByPhone(phone, username, companyName);
     }
 }

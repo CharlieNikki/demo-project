@@ -15,4 +15,11 @@ public class Result {
     private String msg;
     private Object data;
     private Integer count;
+
+    public void setResult(Integer code, String msg, Object data, Integer count) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+        this.count = count;
+    }
 }

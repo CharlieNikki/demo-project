@@ -8,7 +8,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:8080/project
+    url: jdbc:mysql://localhost:8080/demo
     username: root
     password: 123123
     druid:
@@ -35,3 +35,6 @@ spring:
         #static-locations: "file:/usr/local/detect"
         # Windows
         static-locations: "file:E:/project"
+
+project:
+  prefix-path: "http://localhost:8084"

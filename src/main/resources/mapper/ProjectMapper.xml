@@ -6,9 +6,42 @@
 
     <insert id="insertProject" parameterType="com.example.demoproject.entity.Project">
         insert into
-            project_information(project_name, username, telephone, content, longitude, latitude, uploader)
+            detect_request(project_name, leader_name, leader_phone, project_detail, longitude, latitude, uploader, detect_date)
         values
-            (#{projectName}, #{username}, #{telephone}, #{content}, #{longitude}, #{latitude}, #{uploader})
+            (#{projectName}, #{username}, #{telephone}, #{content}, #{longitude}, #{latitude}, #{uploader}, #{date})
     </insert>
 
+    <select id="selectProjectByPhone" resultType="com.example.demoproject.entity.Project">
+        select
+            project_name as projectName, project_detail as content, id, detect_date as date,
+            uploader, longitude, latitude, data_status as dataStatus
+        from
+            detect_request
+        where
+            leader_phone = #{phone}
+    </select>
+
+    <update id="updateImgById">
+        update
+            detect_request
+        set
+            uploader = #{uploader}
+        where
+            phone = #{phone}
+    </update>
+
+    <delete id="deleteProjectById">
+        delete
+        from
+            detect_request
+        where
+            id = #{id}
+    </delete>
+
+    <select id="selectAllProject" resultType="com.example.demoproject.entity.Project">
+        select
+            project_name as projectName, project_detail as content, id, detect_date as date, data_status as dataStatus
+        from
+            detect_request
+    </select>
 </mapper>

@@ -7,4 +7,6 @@ public interface UserService {
     int insertUser(User user);
 
     User selectUserByPhone(String phone);
+
+    int updateUserByPhone(String phone, String username, String companyName);
 }

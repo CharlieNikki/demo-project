@@ -19,4 +19,13 @@
         where
             phone = #{phone}
     </select>
+
+    <update id="updateUserByPhone" >
+        update
+            user
+        set
+            username = #{username}, company_name = #{companyName}
+        where
+            phone = #{phone}
+    </update>
 </mapper>

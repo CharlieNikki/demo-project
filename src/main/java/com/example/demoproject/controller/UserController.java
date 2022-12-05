@@ -1,6 +1,5 @@
 package com.example.demoproject.controller;
 
-import com.example.demoproject.constant.Sign;
 import com.example.demoproject.entity.Result;
 import com.example.demoproject.entity.User;
 import com.example.demoproject.service.UserService;
@@ -17,7 +16,7 @@ public class UserController {
     private UserService service;
 
     /**
-     * 用户注册
+     * 注册
      */
     @PostMapping("/user/register")
     @ResponseBody
@@ -26,21 +25,25 @@ public class UserController {
         Result result = new Result();
         try {
             if (service.selectUserByPhone(user.getPhone()) == null) {
-                service.insertUser(user);
-                result.setCode(RETURN_CODE_SUCCESS);
-                result.setMsg(RETURN_MESSAGE_SUCCESS);
+                int insertResult = service.insertUser(user);
+                result.setResult(RETURN_CODE_SUCCESS, RETURN_MESSAGE_SUCCESS, null, insertResult);
             } else {
-                result.setCode(RETURN_CODE_FAIL);
-                result.setMsg("该手机号已被使用！");
+                result.setResult(RETURN_CODE_FAIL, "该手机号已被使用", null, null);
             }
         } catch (Exception e) {
-            result.setCode(SYSTEM_CODE_ERROR);
-            result.setMsg(e.getMessage());
+            result.setResult(SYSTEM_CODE_ERROR, e.getMessage(), null, null);
+            e.printStackTrace();
         }
 
         return result;
     }
 
+    /**
+     * 登录
+     * @param phone
+     * @param password
+     * @return
+     */
     @PostMapping("/user/login")
     @ResponseBody
     public Result login(@RequestParam(value = "phone") String phone,
@@ -48,28 +51,24 @@ public class UserController {
 
         Result result = new Result();
         User user;
+
         try {
             user = service.selectUserByPhone(phone);
             System.out.println(user);
             if (user == null) {
-                result.setCode(RETURN_CODE_FAIL);
-                result.setMsg("该用户不存在");
+                result.setResult(RETURN_CODE_FAIL, "没有该用户", null, null);
             } else {
                 // 进行密码的匹配
                 if (user.getPassword().equals(password)) {
                     // 登陆成功
-                    result.setCode(RETURN_CODE_SUCCESS);
-                    result.setMsg("登陆成功");
                     user.setPassword("");
-                    result.setData(user);
+                    result.setResult(RETURN_CODE_SUCCESS, "登陆成功", user, 1);
                 } else {
-                    result.setCode(RETURN_CODE_FAIL);
-                    result.setMsg("密码错误");
+                    result.setResult(RETURN_CODE_FAIL, "密码错误", null, 0);
                 }
             }
         } catch (Exception e) {
-            result.setCode(SYSTEM_CODE_ERROR);
-            result.setMsg(e.getMessage());
+            result.setResult(SYSTEM_CODE_ERROR, e.getMessage(), null, null);
             e.printStackTrace();
         }
         return result;
@@ -78,10 +77,51 @@ public class UserController {
     /**
      *  获取个人资料
      */
-    @GetMapping("/user/getUserInfo")
+    @GetMapping("/user/getUser")
     @ResponseBody
-    public Result getUserInfo(String phone) {
+    public Result getUser(@RequestParam(value = "phone") String phone) {
 
-        return null;
+        Result result = new Result();
+        User user;
+
+        try {
+            user = service.selectUserByPhone(phone);
+            if (user != null) {
+                result.setResult(RETURN_CODE_SUCCESS, RETURN_MESSAGE_SUCCESS, user, 1);
+            } else {
+                result.setResult(RETURN_CODE_FAIL, "该用户不存在", null, 0);
+            }
+        } catch (Exception e) {
+            result.setResult(SYSTEM_CODE_ERROR, e.getMessage(), null, null);
+            e.printStackTrace();
+        }
+        return result;
     }
+
+    /**
+     * 更新个人资料
+     */
+    @PostMapping("/user/update")
+    @ResponseBody
+    public Result updateUser(@RequestParam(value = "username") String username,
+                             @RequestParam(value = "companyName") String companyName,
+                             @RequestParam(value = "phone") String phone) {
+
+        Result result = new Result();
+
+        try {
+            int updateResult = service.updateUserByPhone(phone, username, companyName);
+            if (updateResult == 1) {
+                // 更新成功
+                result.setResult(RETURN_CODE_SUCCESS, RETURN_MESSAGE_SUCCESS, null, updateResult);
+            } else {
+                result.setResult(RETURN_CODE_FAIL, "数据库更新失败", null, 0);
+            }
+        } catch (Exception e) {
+            result.setResult(SYSTEM_CODE_ERROR, e.getMessage(), null, null);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 }

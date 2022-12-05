@@ -13,14 +13,15 @@ import java.math.BigDecimal;
 @ToString
 public class Project {
 
-    private Integer id;
-    private String projectName;
-    private String username;
-    private String telephone;
-    private String content;
-    private String location;
-    private BigDecimal longitude;
-    private BigDecimal latitude;
-    private String uploader;
-
+    private Integer id;             // id
+    private String projectName;     // project_name
+    private String username;        // leader_name
+    private String telephone;       // leader_phone
+    private String content;         // project_detail
+    private String location;        // location
+    private BigDecimal longitude;   // longitude
+    private BigDecimal latitude;    // latitude
+    private String uploader;        // uploader
+    private String date;            // detect_date
+    private Integer dataStatus;     // data_status
 }

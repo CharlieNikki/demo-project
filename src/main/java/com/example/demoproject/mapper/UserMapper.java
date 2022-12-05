@@ -11,4 +11,6 @@ public interface UserMapper {
 
     // 通过手机号搜索用户（手机号唯一）
     User selectUserByPhone(String phone);
+
+    int updateUserByPhone(String phone, String username, String companyName);
 }
