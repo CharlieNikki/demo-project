@@ -45,6 +45,7 @@ public class ProjectController {
                     if (location != null) {
                         project.setLongitude(location.getLng());
                         project.setLatitude(location.getLat());
+                        project.setAddress(location.getAddr());
                     }
                     int insertResult = service.insertProject(project);
                     if (insertResult == 1) {
@@ -97,14 +98,15 @@ public class ProjectController {
 
         Result result = new Result();
         try {
-            int deleteResult = service.deleteProjectById(id);
-            if (deleteResult == 1) {
-                result.setResult(RETURN_CODE_SUCCESS, RETURN_MESSAGE_SUCCESS, null, deleteResult);
+            boolean deleteResult = service.deleteProjectById(id);
+            if (deleteResult) {
+                result.setResult(RETURN_CODE_SUCCESS, RETURN_MESSAGE_SUCCESS, null, 1);
             } else {
                 result.setResult(RETURN_CODE_FAIL, "数据库更新失败", null ,0);
             }
         } catch (Exception e) {
             result.setResult(SYSTEM_CODE_ERROR, e.getMessage(), null, null);
+            e.printStackTrace();
         }
         return result;
     }

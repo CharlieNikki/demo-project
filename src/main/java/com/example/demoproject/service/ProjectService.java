@@ -12,7 +12,7 @@ public interface ProjectService {
 
     int insertImgById(Integer id, String uploader);
 
-    int deleteProjectById(Integer id);
+    boolean deleteProjectById(Integer id);
 
     List<Project> selectAllProject();
 }

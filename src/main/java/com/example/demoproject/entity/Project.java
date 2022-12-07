@@ -24,7 +24,7 @@ public class Project {
     private String uploader;        // uploader
     private String date;            // detect_date
     private Integer dataStatus;     // data_status
-
+    private String address;         // address
     public void setProject(String projectName, String username, String telephone,
                            String content, String uploader, String date) {
         this.projectName = projectName;

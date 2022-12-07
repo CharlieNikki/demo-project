@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @ToString
 public class Location {
 
+    private String addr;
     private BigDecimal lng;
     private BigDecimal lat;
 }

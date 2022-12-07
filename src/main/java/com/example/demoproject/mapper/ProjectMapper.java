@@ -17,4 +17,6 @@ public interface ProjectMapper {
     int deleteProjectById(Integer id);
 
     List<Project> selectAllProject();
+
+    String selectProjectImageById(Integer id);
 }
