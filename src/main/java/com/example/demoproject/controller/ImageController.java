@@ -28,7 +28,7 @@ public class ImageController {
      * @return
      */
     @PostMapping("/project/insertImg")
-    public Result insertImg(@RequestPart("file")MultipartFile file,
+    public Result insertImg(@RequestPart("uploader")MultipartFile file,
                             @RequestParam("projectId") Integer projectId) {
 
         Result result = new Result();

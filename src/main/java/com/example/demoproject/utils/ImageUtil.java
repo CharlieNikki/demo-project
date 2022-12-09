@@ -13,7 +13,9 @@ public class ImageUtil {
 
 
     //@Value("${path.save-image-path}")// 创建文件夹
-    public String SAVE_IMAGE_PATH = "D:/project/images/";
+    //public String SAVE_IMAGE_PATH = "D:/project/images/";
+
+    public String SAVE_IMAGE_PATH = "/usr/local/project/images/";
 
     // 文件的相对路径
     public static final String SAVE_IMAGE_RELATIVE_PATH = "/images/";

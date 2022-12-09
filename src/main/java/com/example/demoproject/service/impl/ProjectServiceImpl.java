@@ -44,7 +44,8 @@ public class ProjectServiceImpl implements ProjectService {
         int i = 0;
         for (String s : imagesPath) {
             // 拼接成路径地址
-            String imagePath = "D:/project/images/" + s;
+            //String imagePath = "D:/project/images/" + s;
+            String imagePath = "/usr/local/project/images/" + s;
             // 根据文件路径创建文件对象
             File file = new File(imagePath);
             // 该文件不是文件夹且不为空时
