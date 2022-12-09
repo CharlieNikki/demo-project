@@ -1,0 +1,38 @@
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+server:
+  port: 8084
+  servlet:
+    context-path: /
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:8080/demo
+    username: root
+    password: 123456
+    druid:
+      aop-patterns: com.example.project_demo.entity.* # 监控springbean
+      filter: stat, wall # 底层开启功能
+
+      stat-view-servlet:
+        enabled: true
+        login-password: 123
+        login-username: admin
+        reset-enable: false
+
+        web-stat-filter:
+          enabled: true
+          url-pattern: /*
+          exclusions: '*.js, *.gif, *.jpg, *.png, /druid/*'
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+    web:
+      resources:
+        static-locations: "file:E:/project"
+
+path:
+  prefix-path: "http://localhost:8084"
+  save-image-path: "E:/project/images/"

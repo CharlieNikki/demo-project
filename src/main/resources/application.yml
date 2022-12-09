@@ -1,6 +1,6 @@
 spring:
   profiles:
-    #active: dev
-    active: prod
+    active: test
+    #active: prod
   application:
     name: project-Providers

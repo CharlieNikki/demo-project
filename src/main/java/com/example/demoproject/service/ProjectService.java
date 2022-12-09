@@ -10,8 +10,6 @@ public interface ProjectService {
 
     List<Project> selectProjectByPhone(String phone);
 
-    int insertImgById(Integer id, String uploader);
-
     boolean deleteProjectById(Integer id);
 
     List<Project> selectAllProject();

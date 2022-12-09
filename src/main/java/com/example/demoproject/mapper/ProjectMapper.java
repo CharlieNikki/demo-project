@@ -12,11 +12,7 @@ public interface ProjectMapper {
 
     List<Project> selectProjectByPhone(String phone);
 
-    int updateImgById(Integer id, String uploader);
-
     int deleteProjectById(Integer id);
 
     List<Project> selectAllProject();
-
-    String selectProjectImageById(Integer id);
 }

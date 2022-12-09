@@ -17,16 +17,18 @@ public class FileUtil {
 
         StringBuilder imagesPath = new StringBuilder();
         String newFileName;
+        ImageUtil imageUtil = new ImageUtil();
 
         if (file != null) {
+
             // 获取文件后缀
-            String suffixName = ImageUtil.getImagePath(file);
+            String suffixName = imageUtil.getImagePath(file);
             // 生成新文件的名称(UUID+时间戳)
-            newFileName = ImageUtil.getNewFileName(suffixName);
+            newFileName = imageUtil.getNewFileName(suffixName);
             // 保存文件
-            File f = new File(ImageUtil.getNewImagePath(newFileName));
+            File f = new File(imageUtil.getNewImagePath(newFileName));
             // 将对象存入本地磁盘
-            boolean state = ImageUtil.saveImage(file, f);
+            boolean state = imageUtil.saveImage(file, f);
             // 存入本地磁盘成功
             if (state) {
                 imagesPath.append(newFileName).append(",");

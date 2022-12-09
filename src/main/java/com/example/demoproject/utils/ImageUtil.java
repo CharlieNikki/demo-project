@@ -12,8 +12,8 @@ import java.util.UUID;
 public class ImageUtil {
 
 
-    @Value("${path.save-image-path}")// 创建文件夹
-    public static String SAVE_IMAGE_PATH;
+    //@Value("${path.save-image-path}")// 创建文件夹
+    public String SAVE_IMAGE_PATH = "D:/project/images/";
 
     // 文件的相对路径
     public static final String SAVE_IMAGE_RELATIVE_PATH = "/images/";
@@ -21,7 +21,7 @@ public class ImageUtil {
     /**
      * 返回文件后缀
      */
-    public static String getImagePath(MultipartFile file) {
+    public String getImagePath(MultipartFile file) {
         String fileName = file.getOriginalFilename();
         int index = fileName.indexOf(".");
         return fileName.substring(index, fileName.length());
@@ -31,7 +31,7 @@ public class ImageUtil {
      * 保存图片
      */
     @SneakyThrows
-    public static boolean saveImage(MultipartFile multipartFile, File file) {
+    public boolean saveImage(MultipartFile multipartFile, File file) {
 
         // 查看文件是否存在，不存在则创建
         if (!file.getParentFile().exists()) {
@@ -50,7 +50,7 @@ public class ImageUtil {
     /**
      * 新文件名
      */
-    public static String getNewFileName(String suffix) {
+    public String getNewFileName(String suffix) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String date = sdf.format(new Date());
@@ -60,7 +60,7 @@ public class ImageUtil {
     /**
      * 返回图片保存地址
      */
-    public static String getNewImagePath(String name) {
+    public String getNewImagePath(String name) {
         return SAVE_IMAGE_PATH + name;
     }
 }

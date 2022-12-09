@@ -5,9 +5,8 @@ import com.example.demoproject.entity.Project;
 import com.example.demoproject.entity.Result;
 import com.example.demoproject.service.ProjectService;
 import com.example.demoproject.utils.DateUtil;
-import com.example.demoproject.utils.FileUtil;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.annotation.Resource;
 
@@ -21,51 +20,51 @@ public class ProjectController {
     @Resource
     private ProjectService service;
 
+    /**
+     * 添加申请
+     * @param projectName
+     * @param username
+     * @param phone
+     * @param content
+     * @param location
+     * @return
+     */
     @PostMapping("/project/insert")
     @ResponseBody
     public Result insert(@RequestParam(value = "projectName", required = true) String projectName,
-                                @RequestParam(value = "username", required = true) String username,
-                                @RequestParam(value = "telephone", required = true) String phone,
-                                @RequestParam(value = "content", required = true) String content,
-                                @RequestParam(value = "location", required = false) Location location,
-                                @RequestPart(value = "uploader", required = true)MultipartFile file) {
+                         @RequestParam(value = "username", required = true) String username,
+                         @RequestParam(value = "telephone", required = true) String phone,
+                         @RequestParam(value = "content", required = true) String content,
+                         @RequestParam(value = "location", required = false) Location location) {
 
         Result result = new Result();
         Project project = new Project();
-        String date = DateUtil.dateFormat();
-        String newFileName;
+        int insertResult;
 
-        if (file != null) {
-            try {
-                // 将图片下载至本地
-                newFileName = FileUtil.fileDownload(file);
-                if (!newFileName.equals(RETURN_MESSAGE_FAIL)) {
-                    // 将数据存入数据库
-                    project.setProject(projectName, username, phone, content, newFileName, date);
-                    if (location != null) {
-                        project.setLongitude(location.getLng());
-                        project.setLatitude(location.getLat());
-                        project.setAddress(location.getAddr());
-                    }
-                    int insertResult = service.insertProject(project);
-                    if (insertResult == 1) {
-                        result.setResult(RETURN_CODE_SUCCESS, RETURN_MESSAGE_SUCCESS, null, insertResult);
-                    } else {
-                        result.setResult(RETURN_CODE_FAIL, "数据库更新失败", null, 0);
-                    }
-                } else {
-                    result.setResult(RETURN_CODE_FAIL, "图片上传失败", null, 0);
-                }
-            } catch (Exception e) {
-                result.setResult(SYSTEM_CODE_ERROR, e.getMessage(), null, null);
-                e.printStackTrace();
-            }
+        project.setProject(projectName, username, phone, content, DateUtil.dateFormat());
+        if (location != null) {
+            project.setLongitude(location.getLng());
+            project.setLatitude(location.getLat());
+            project.setAddress(location.getAddr());
+        }
+        try {
+            insertResult = service.insertProject(project);
+        } catch (Exception e) {
+            result.setResult(SYSTEM_CODE_ERROR, e.getMessage(), null, 0);
+            e.printStackTrace();
+            return result;
+        }
+        if (insertResult == 1) {
+            result.setResult(RETURN_CODE_SUCCESS, RETURN_MESSAGE_SUCCESS, null, insertResult);
+        } else {
+            result.setResult(RETURN_CODE_FAIL, "数据库更新失败", null, 0);
         }
         return result;
     }
 
     /**
-     * 根据phone批量获取Project信息
+     * 根据phone获取Project信息
+     *
      * @param phone
      * @return
      */
@@ -102,7 +101,7 @@ public class ProjectController {
             if (deleteResult) {
                 result.setResult(RETURN_CODE_SUCCESS, RETURN_MESSAGE_SUCCESS, null, 1);
             } else {
-                result.setResult(RETURN_CODE_FAIL, "数据库更新失败", null ,0);
+                result.setResult(RETURN_CODE_FAIL, "数据库更新失败", null, 0);
             }
         } catch (Exception e) {
             result.setResult(SYSTEM_CODE_ERROR, e.getMessage(), null, null);
@@ -112,7 +111,7 @@ public class ProjectController {
     }
 
     /**
-     * 获取所有的project信息
+     * 获取所有的project信息(弃)
      */
     @GetMapping("/project/getAll")
     @ResponseBody

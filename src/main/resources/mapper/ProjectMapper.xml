@@ -6,29 +6,20 @@
 
     <insert id="insertProject" parameterType="com.example.demoproject.entity.Project">
         insert into
-            detect_request(project_name, leader_name, leader_phone, project_detail, longitude, latitude, uploader, detect_date, address)
+            detect_request(project_name, leader_name, leader_phone, project_detail, longitude, latitude, detect_date, address)
         values
-            (#{projectName}, #{username}, #{telephone}, #{content}, #{longitude}, #{latitude}, #{uploader}, #{date}, #{address})
+            (#{projectName}, #{username}, #{telephone}, #{content}, #{longitude}, #{latitude}, #{date}, #{address})
     </insert>
 
     <select id="selectProjectByPhone" resultType="com.example.demoproject.entity.Project">
         select
             project_name as projectName, project_detail as content, id, detect_date as date,
-            uploader, longitude, latitude, data_status as dataStatus
+            longitude, latitude, data_status as dataStatus
         from
             detect_request
         where
             leader_phone = #{phone}
     </select>
-
-    <update id="updateImgById">
-        update
-            detect_request
-        set
-            uploader = #{uploader}
-        where
-            phone = #{phone}
-    </update>
 
     <delete id="deleteProjectById">
         delete
@@ -43,14 +34,5 @@
             project_name as projectName, project_detail as content, id, detect_date as date, data_status as dataStatus
         from
             detect_request
-    </select>
-
-    <select id="selectProjectImageById" resultType="string">
-        select
-            uploader
-        from
-            detect_request
-        where
-            id = #{id}
     </select>
 </mapper>
