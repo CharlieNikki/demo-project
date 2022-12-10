@@ -3,6 +3,7 @@ package com.example.demoproject.controller;
 import com.example.demoproject.entity.Result;
 import com.example.demoproject.entity.User;
 import com.example.demoproject.service.UserService;
+import com.example.demoproject.utils.SnowflakeIdWorker;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -23,6 +24,8 @@ public class UserController {
     public Result register(User user) {
 
         Result result = new Result();
+        SnowflakeIdWorker snow = new SnowflakeIdWorker(0,0);
+        user.setUserId(String.valueOf(snow.nextId()));
         try {
             if (service.selectUserByPhone(user.getPhone()) == null) {
                 int insertResult = service.insertUser(user);
@@ -54,7 +57,6 @@ public class UserController {
 
         try {
             user = service.selectUserByPhone(phone);
-            System.out.println(user);
             if (user == null) {
                 result.setResult(RETURN_CODE_FAIL, "没有该用户", null, null);
             } else {

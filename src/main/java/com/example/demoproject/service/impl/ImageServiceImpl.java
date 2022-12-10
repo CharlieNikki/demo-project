@@ -36,10 +36,7 @@ public class ImageServiceImpl implements ImageService {
             image.setImageName(fileNewName);
             int insertResult = mapper.insertImage(image);
             // 存入数据库成功
-            if (insertResult == 1) {
-                System.out.println(image);
-                return true;
-            }
+            return insertResult == 1;
         }
         return false;
     }

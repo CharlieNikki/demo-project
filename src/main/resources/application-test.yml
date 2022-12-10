@@ -31,8 +31,8 @@ spring:
       max-request-size: 200MB
     web:
       resources:
-        static-locations: "file:E:/project"
+        static-locations: "file:D:/project"
 
 path:
-  prefix-path: "http://localhost:8084"
-  save-image-path: "E:/project/images/"
+  prefix-path: "http://localhost:8085"
+  save-image-path: "D:/project/images/"

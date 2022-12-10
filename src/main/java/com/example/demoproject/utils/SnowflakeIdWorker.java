@@ -123,14 +123,5 @@ public class SnowflakeIdWorker {
     protected long timeGen() {
         return System.currentTimeMillis();
     }
-
-    //==============================Test=============================================
-    /** 测试 */
-    public static void main(String[] args) {
-        SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
-        long id = idWorker.nextId();
-        System.out.println("id:"+id);
-        //id:768842202204864512
-    }
 }
 

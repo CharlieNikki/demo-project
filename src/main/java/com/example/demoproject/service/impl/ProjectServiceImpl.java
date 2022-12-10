@@ -26,6 +26,16 @@ public class ProjectServiceImpl implements ProjectService {
         return mapper.selectAllProject();
     }
 
+    @Override
+    public List<Project> selectProjectByStatus(Integer dataStatus, String userId) {
+        return mapper.selectProjectByStatus(dataStatus, userId);
+    }
+
+    @Override
+    public List<Project> selectProjectByUserId(String userId) {
+        return mapper.selectProjectByUserId(userId);
+    }
+
     /**
      * 根据id，删除对应的project信息
      *

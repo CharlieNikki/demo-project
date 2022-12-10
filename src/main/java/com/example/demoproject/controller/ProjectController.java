@@ -1,6 +1,5 @@
 package com.example.demoproject.controller;
 
-import com.example.demoproject.entity.Location;
 import com.example.demoproject.entity.Project;
 import com.example.demoproject.entity.Result;
 import com.example.demoproject.service.ProjectService;
@@ -30,19 +29,20 @@ public class ProjectController {
     public Result insertTest(Project project) {
 
         Result result = new Result();
-
-
+        // 注入project的id
         project.setId(OrderNumUtil.getOrderId());
+        // 设置project创建日期
         project.setDate(DateUtil.dateFormat());
         int insertResult = 0;
-
         try {
             insertResult = service.insertProject(project);
         } catch (Exception e) {
             result.setResult(SYSTEM_CODE_ERROR, e.getMessage(), null, 0);
+            e.printStackTrace();
         }
 
         if (insertResult == 1) {
+            // project新增时，返回project信息
             result.setResult(RETURN_CODE_SUCCESS, RETURN_MESSAGE_SUCCESS, project, insertResult);
         } else
             result.setResult(RETURN_CODE_FAIL, "数据库更新失败", null, 0);
@@ -50,20 +50,20 @@ public class ProjectController {
     }
 
     /**
-     * 根据phone获取Project信息
+     * 根据userId获取Project信息
      *
-     * @param phone
+     * @param userId
      * @return
      */
     @GetMapping("/project/getProject")
     @ResponseBody
-    public Result getProject(@RequestParam(value = "phone") String phone) {
+    public Result getProject(@RequestParam(value = "userId") String userId) {
 
         Result result = new Result();
         List<Project> projects;
 
         try {
-            projects = service.selectProjectByPhone(phone);
+            projects = service.selectProjectByUserId(userId);
             if (projects.size() != 0) {
                 result.setResult(RETURN_CODE_SUCCESS, RETURN_MESSAGE_SUCCESS, projects, projects.size());
             } else {
@@ -98,23 +98,27 @@ public class ProjectController {
     }
 
     /**
-     * 获取所有的project信息(弃)
+     * 根据userId和检测状态(不采取手动输入)获取project信息
      */
-    @GetMapping("/project/getAll")
-    @ResponseBody
-    public Result getAll() {
+    @GetMapping("/project/getProjectByStatus")
+    public Result getProjectByStatus(@RequestParam(value = "userId") String userId) {
 
         Result result = new Result();
-        List<Project> projects;
+        List<Project> projects = null;
         try {
-            projects = service.selectAllProject();
+            // 搜索
+            projects = service.selectProjectByStatus(3, userId);
+        } catch (Exception e) {
+            result.setResult(SYSTEM_CODE_ERROR, e.getMessage(), null, 0);
+            e.printStackTrace();
+        }
+        // 搜索结果不为空
+        if (projects != null) {
             if (projects.size() != 0) {
                 result.setResult(RETURN_CODE_SUCCESS, RETURN_MESSAGE_SUCCESS, projects, projects.size());
             } else {
-                result.setResult(RETURN_CODE_FAIL, "没有什么信息", null, 0);
+                result.setResult(RETURN_CODE_FAIL, "没有数据", null, 0);
             }
-        } catch (Exception e) {
-            result.setResult(SYSTEM_CODE_ERROR, e.getMessage(), null, null);
         }
         return result;
     }

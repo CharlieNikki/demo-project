@@ -2,6 +2,7 @@ package com.example.demoproject.utils;
 
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -9,16 +10,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+@Configuration
 public class ImageUtil {
 
 
     //@Value("${path.save-image-path}")// 创建文件夹
     //public String SAVE_IMAGE_PATH = "D:/project/images/";
 
-    public String SAVE_IMAGE_PATH = "/usr/local/project/images/";
 
-    // 文件的相对路径
-    public static final String SAVE_IMAGE_RELATIVE_PATH = "/images/";
+    //@Value("${path.save-image-path}")
+    public String SAVE_IMAGE_PATH = "/usr/local/project/images/";
 
     /**
      * 返回文件后缀

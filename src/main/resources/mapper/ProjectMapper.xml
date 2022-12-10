@@ -6,9 +6,9 @@
 
     <insert id="insertProject" parameterType="com.example.demoproject.entity.Project">
         insert into
-            detect_request(id, project_name, leader_name, leader_phone, project_detail, longitude, latitude, detect_date, address)
+            detect_request(id, project_name, leader_name, leader_phone, project_detail, longitude, latitude, detect_date, address, user_id)
         values
-            (#{id}, #{projectName}, #{username}, #{telephone}, #{content}, #{lng}, #{lat}, #{date}, #{addr})
+            (#{id}, #{projectName}, #{username}, #{telephone}, #{content}, #{lng}, #{lat}, #{date}, #{addr}, #{userId})
     </insert>
 
     <select id="selectProjectByPhone" resultType="com.example.demoproject.entity.Project">
@@ -34,5 +34,25 @@
             project_name as projectName, project_detail as content, id, detect_date as date, data_status as dataStatus
         from
             detect_request
+    </select>
+
+    <select id="selectProjectByUserId" resultType="com.example.demoproject.entity.Project">
+        select
+            project_name as projectName, project_detail as content, id, detect_date as date,
+            longitude, latitude, data_status as dataStatus, user_id as userId
+        from
+            detect_request
+        where
+            user_id = #{userId}
+    </select>
+
+    <select id="selectProjectByStatus" resultType="com.example.demoproject.entity.Project">
+        select
+            project_name as projectName, project_detail as content, id, detect_date as date,
+            longitude, latitude, data_status as dataStatus, user_id as userId
+        from
+            detect_request
+        where
+            data_status = #{dataStatus} and user_id = #{userId}
     </select>
 </mapper>

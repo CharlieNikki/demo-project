@@ -13,4 +13,8 @@ public interface ProjectService {
     boolean deleteProjectById(Integer id);
 
     List<Project> selectAllProject();
+
+    List<Project> selectProjectByUserId(String userId);
+
+    List<Project> selectProjectByStatus(Integer dataStatus, String userId);
 }

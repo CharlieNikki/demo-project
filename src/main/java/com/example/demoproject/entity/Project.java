@@ -13,24 +13,16 @@ import java.math.BigDecimal;
 @ToString
 public class Project {
 
+    /*----实体类对应的属性名称----------数据库中对应的字段名---------*/
     private String id;              // id
     private String projectName;     // project_name
     private String username;        // leader_name
     private String telephone;       // leader_phone
     private String content;         // project_detail
-    private BigDecimal lng;   // longitude
-    private BigDecimal lat;    // latitude
+    private BigDecimal lng;         // longitude
+    private BigDecimal lat;         // latitude
     private String date;            // detect_date
     private Integer dataStatus;     // data_status
-    private String addr;         // address
-
-    public void setProject(String id, String projectName, String username, String telephone,
-                           String content, String date) {
-        this.id = id;
-        this.projectName = projectName;
-        this.username = username;
-        this.telephone = telephone;
-        this.content = content;
-        this.date = date;
-    }
+    private String addr;            // address
+    private String userId;          // user_id
 }
