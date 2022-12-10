@@ -71,6 +71,11 @@ public class ProjectServiceImpl implements ProjectService {
         return mapper.selectProjectByPhone(phone);
     }
 
+    /**
+     * 新增project信息
+     * @param project
+     * @return
+     */
     @Override
     public int insertProject(Project project) {
         return mapper.insertProject(project);

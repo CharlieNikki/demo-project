@@ -4,3 +4,9 @@ spring:
     active: prod
   application:
     name: project-Providers
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true

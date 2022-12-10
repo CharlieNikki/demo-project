@@ -6,9 +6,9 @@
 
     <insert id="insertProject" parameterType="com.example.demoproject.entity.Project">
         insert into
-            detect_request(project_name, leader_name, leader_phone, project_detail, longitude, latitude, detect_date, address)
+            detect_request(id, project_name, leader_name, leader_phone, project_detail, longitude, latitude, detect_date, address)
         values
-            (#{projectName}, #{username}, #{telephone}, #{content}, #{longitude}, #{latitude}, #{date}, #{address})
+            (#{id}, #{projectName}, #{username}, #{telephone}, #{content}, #{lng}, #{lat}, #{date}, #{addr})
     </insert>
 
     <select id="selectProjectByPhone" resultType="com.example.demoproject.entity.Project">

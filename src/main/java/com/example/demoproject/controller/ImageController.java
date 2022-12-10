@@ -5,10 +5,8 @@ import com.example.demoproject.entity.Image;
 import com.example.demoproject.entity.Result;
 import com.example.demoproject.service.ImageService;
 import com.example.demoproject.utils.DateUtil;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.demoproject.utils.SnowflakeIdWorker;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -28,15 +26,19 @@ public class ImageController {
      * @return
      */
     @PostMapping("/project/insertImg")
-    public Result insertImg(@RequestPart("uploader")MultipartFile file,
-                            @RequestParam("projectId") Integer projectId) {
+    @ResponseBody
+    public Result insertImg(@RequestParam("uploader") MultipartFile file,
+                            @RequestParam("projectId") Long projectId) {
 
         Result result = new Result();
         Image image = new Image();
+        SnowflakeIdWorker snow = new SnowflakeIdWorker(0, 0);
         boolean flag = false;
+
         image.setImageType(0);
         image.setDate(DateUtil.dateFormat());
         image.setProjectId(projectId);
+        image.setId(snow.nextId());
 
         // 判断文件是否为空
         if (file != null) {

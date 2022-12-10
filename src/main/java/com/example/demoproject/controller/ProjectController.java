@@ -5,6 +5,7 @@ import com.example.demoproject.entity.Project;
 import com.example.demoproject.entity.Result;
 import com.example.demoproject.service.ProjectService;
 import com.example.demoproject.utils.DateUtil;
+import com.example.demoproject.utils.OrderNumUtil;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -21,44 +22,30 @@ public class ProjectController {
     private ProjectService service;
 
     /**
-     * 添加申请
-     * @param projectName
-     * @param username
-     * @param phone
-     * @param content
-     * @param location
+     * 新增project
+     * @param project
      * @return
      */
     @PostMapping("/project/insert")
-    @ResponseBody
-    public Result insert(@RequestParam(value = "projectName", required = true) String projectName,
-                         @RequestParam(value = "username", required = true) String username,
-                         @RequestParam(value = "telephone", required = true) String phone,
-                         @RequestParam(value = "content", required = true) String content,
-                         @RequestParam(value = "location", required = false) Location location) {
+    public Result insertTest(Project project) {
 
         Result result = new Result();
-        Project project = new Project();
-        int insertResult;
 
-        project.setProject(projectName, username, phone, content, DateUtil.dateFormat());
-        if (location != null) {
-            project.setLongitude(location.getLng());
-            project.setLatitude(location.getLat());
-            project.setAddress(location.getAddr());
-        }
+
+        project.setId(OrderNumUtil.getOrderId());
+        project.setDate(DateUtil.dateFormat());
+        int insertResult = 0;
+
         try {
             insertResult = service.insertProject(project);
         } catch (Exception e) {
             result.setResult(SYSTEM_CODE_ERROR, e.getMessage(), null, 0);
-            e.printStackTrace();
-            return result;
         }
+
         if (insertResult == 1) {
-            result.setResult(RETURN_CODE_SUCCESS, RETURN_MESSAGE_SUCCESS, null, insertResult);
-        } else {
+            result.setResult(RETURN_CODE_SUCCESS, RETURN_MESSAGE_SUCCESS, project, insertResult);
+        } else
             result.setResult(RETURN_CODE_FAIL, "数据库更新失败", null, 0);
-        }
         return result;
     }
 

@@ -6,9 +6,9 @@
 
     <insert id="insertImage" parameterType="com.example.demoproject.entity.Image">
         insert into
-            image(project_id, image_name, date, image_type)
+            image(id, project_id, image_name, date, image_type)
         values
-               (#{projectId}, #{imageName}, #{date}, #{imageType})
+               (#{id}, #{projectId}, #{imageName}, #{date}, #{imageType})
     </insert>
 
     <select id="selectImageNameByProjectId" resultType="string">
