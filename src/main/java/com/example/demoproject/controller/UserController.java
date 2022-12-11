@@ -26,6 +26,8 @@ public class UserController {
         Result result = new Result();
         SnowflakeIdWorker snow = new SnowflakeIdWorker(0,0);
         user.setUserId(String.valueOf(snow.nextId()));
+        user.setUserType(0);
+
         try {
             if (service.selectUserByPhone(user.getPhone()) == null) {
                 int insertResult = service.insertUser(user);
@@ -43,9 +45,6 @@ public class UserController {
 
     /**
      * 登录
-     * @param phone
-     * @param password
-     * @return
      */
     @PostMapping("/user/login")
     @ResponseBody

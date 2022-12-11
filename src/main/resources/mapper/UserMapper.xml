@@ -6,14 +6,14 @@
 
     <insert id="insertUser" parameterType="com.example.demoproject.entity.User">
         insert into
-            user(user_id, username, password, company_name, phone)
+            user(user_id, username, password, company_name, phone, user_type)
         values
-            (#{userId}, #{username}, #{password}, #{companyName}, #{phone})
+            (#{userId}, #{username}, #{password}, #{companyName}, #{phone}, #{userType})
     </insert>
 
     <select id="selectUserByPhone" resultType="com.example.demoproject.entity.User">
         select
-            user_id as userId, username, company_name as companyName, phone, password
+            user_id as userId, username, company_name as companyName, phone, password, user_type as userType
         from
             user
         where

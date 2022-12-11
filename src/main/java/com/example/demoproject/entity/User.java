@@ -16,4 +16,5 @@ public class User {
     private String password;
     private String phone;
     private String companyName;
+    private Integer userType;
 }

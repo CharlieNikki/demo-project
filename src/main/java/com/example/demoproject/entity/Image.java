@@ -11,8 +11,8 @@ import lombok.ToString;
 @ToString
 public class Image {
 
-    private Long id;
-    private Long projectId;
+    private String id;
+    private String projectId;
     private String imageName;
     private Integer imageType;
     private String date;

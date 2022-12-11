@@ -22,8 +22,6 @@ public class ProjectController {
 
     /**
      * 新增project
-     * @param project
-     * @return
      */
     @PostMapping("/project/insert")
     public Result insertTest(Project project) {
@@ -80,7 +78,7 @@ public class ProjectController {
      */
     @PostMapping("/project/delete")
     @ResponseBody
-    public Result delete(@RequestParam(value = "id") Integer id) {
+    public Result delete(@RequestParam(value = "id") String id) {
 
         Result result = new Result();
         try {

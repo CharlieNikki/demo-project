@@ -10,7 +10,7 @@ public interface ProjectService {
 
     List<Project> selectProjectByPhone(String phone);
 
-    boolean deleteProjectById(Integer id);
+    boolean deleteProjectById(String id);
 
     List<Project> selectAllProject();
 

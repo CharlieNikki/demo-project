@@ -44,7 +44,7 @@ public class ProjectServiceImpl implements ProjectService {
      */
     @Override
     @Transactional
-    public boolean deleteProjectById(Integer id) {
+    public boolean deleteProjectById(String id) {
 
         boolean flag = false;
 

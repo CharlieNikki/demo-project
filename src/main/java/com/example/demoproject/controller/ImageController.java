@@ -28,7 +28,7 @@ public class ImageController {
     @PostMapping("/project/insertImg")
     @ResponseBody
     public Result insertImg(@RequestParam("uploader") MultipartFile file,
-                            @RequestParam("projectId") Long projectId) {
+                            @RequestParam("projectId") String projectId) {
 
         Result result = new Result();
         Image image = new Image();
@@ -38,7 +38,7 @@ public class ImageController {
         image.setImageType(0);
         image.setDate(DateUtil.dateFormat());
         image.setProjectId(projectId);
-        image.setId(snow.nextId());
+        image.setId(String.valueOf(snow.nextId()));
 
         // 判断文件是否为空
         if (file != null) {

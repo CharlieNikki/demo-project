@@ -12,7 +12,7 @@ public interface ProjectMapper {
 
     List<Project> selectProjectByPhone(String phone);
 
-    int deleteProjectById(Integer id);
+    int deleteProjectById(String id);
 
     List<Project> selectAllProject();
 
