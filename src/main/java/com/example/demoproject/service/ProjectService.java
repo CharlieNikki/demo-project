@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ProjectService {
 
-    int insertProject(Project project);
+    boolean insertProject(Project project);
 
     List<Project> selectProjectByPhone(String phone);
 

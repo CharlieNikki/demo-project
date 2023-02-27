@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demoproject.mapper.DetectProjectListMapper">
+
+
+    <insert id="insertDetectProjectList" parameterType="com.example.demoproject.entity.DetectProjectList">
+        insert into
+            detect_project_list(project_name, username, telephone, content, date, dataStatus, project_id)
+        values
+            (#{projectName}, #{username}, #{telephone}, #{content}, #{date}, #{datastatus}, #{projectId})
+    </insert>
+</mapper>

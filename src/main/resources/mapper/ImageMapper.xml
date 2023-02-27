@@ -6,7 +6,7 @@
 
     <insert id="insertImage" parameterType="com.example.demoproject.entity.Image">
         insert into
-            image(id, project_id, image_name, date, image_type)
+            detect_image(id, project_id, image_name, date, image_type)
         values
                (#{id}, #{projectId}, #{imageName}, #{date}, #{imageType})
     </insert>
@@ -15,14 +15,14 @@
         select
             image_name
         from
-            image
+            detect_image
         where
             project_id = #{projectId}
     </select>
     
     <delete id="deleteImageByProjectId" >
         delete from
-            image
+            detect_image
         where
             project_id = #{projectId}
     </delete>

@@ -6,7 +6,7 @@
 
     <insert id="insertUser" parameterType="com.example.demoproject.entity.User">
         insert into
-            user(user_id, username, password, company_name, phone, user_type)
+            detect_user(user_id, username, password, company_name, phone, user_type)
         values
             (#{userId}, #{username}, #{password}, #{companyName}, #{phone}, #{userType})
     </insert>
@@ -15,14 +15,14 @@
         select
             user_id as userId, username, company_name as companyName, phone, password, user_type as userType
         from
-            user
+            detect_user
         where
             phone = #{phone}
     </select>
 
     <update id="updateUserByPhone" >
         update
-            user
+            detect_user
         set
             username = #{username}, company_name = #{companyName}
         where

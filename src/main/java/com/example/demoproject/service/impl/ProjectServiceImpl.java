@@ -1,10 +1,12 @@
 package com.example.demoproject.service.impl;
 
-import com.alibaba.fastjson.JSON;
+import com.example.demoproject.entity.DetectProjectList;
 import com.example.demoproject.entity.Project;
+import com.example.demoproject.mapper.DetectProjectListMapper;
 import com.example.demoproject.mapper.ImageMapper;
 import com.example.demoproject.mapper.ProjectMapper;
 import com.example.demoproject.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Resource
     private ImageMapper imageMapper;
+
+    @Autowired
+    private DetectProjectListMapper detectProjectListMapper;
 
     @Override
     public List<Project> selectAllProject() {
@@ -82,12 +87,26 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     /**
-     * 新增project信息
+     * 新增project信息,新增projectList信息
      * @param project
      * @return
      */
     @Override
-    public int insertProject(Project project) {
-        return mapper.insertProject(project);
+    @Transactional
+    public boolean insertProject(Project project) {
+
+        DetectProjectList detectProjectList = new DetectProjectList();
+        detectProjectList.setProjectId(project.getId());
+        detectProjectList.setProjectName(project.getProjectName());
+        detectProjectList.setDate(project.getDate());
+        detectProjectList.setContent(project.getContent());
+        detectProjectList.setUsername(project.getUsername());
+        detectProjectList.setDatastatus("未受理");
+        detectProjectList.setTelephone(project.getTelephone());
+
+        int insertProjectResult = mapper.insertProject(project);
+        int insertListResult = detectProjectListMapper.insertDetectProjectList(detectProjectList);
+
+        return insertListResult == insertProjectResult;
     }
 }

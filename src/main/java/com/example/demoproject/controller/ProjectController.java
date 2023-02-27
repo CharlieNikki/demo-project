@@ -31,7 +31,7 @@ public class ProjectController {
         project.setId(OrderNumUtil.getOrderId());
         // 设置project创建日期
         project.setDate(DateUtil.dateFormat());
-        int insertResult = 0;
+        boolean insertResult = false;
         try {
             insertResult = service.insertProject(project);
         } catch (Exception e) {
@@ -39,9 +39,9 @@ public class ProjectController {
             e.printStackTrace();
         }
 
-        if (insertResult == 1) {
+        if (insertResult) {
             // project新增时，返回project信息
-            result.setResult(RETURN_CODE_SUCCESS, RETURN_MESSAGE_SUCCESS, project, insertResult);
+            result.setResult(RETURN_CODE_SUCCESS, RETURN_MESSAGE_SUCCESS, project, 1);
         } else
             result.setResult(RETURN_CODE_FAIL, "数据库更新失败", null, 0);
         return result;
